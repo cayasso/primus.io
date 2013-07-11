@@ -3,7 +3,13 @@
 [![Build Status](https://travis-ci.org/cayasso/primus.io.png?branch=master)](https://travis-ci.org/cayasso/primus.io)
 [![NPM version](https://badge.fury.io/js/primus.io.png)](http://badge.fury.io/js/primus.io)
 
-Primus.IO makes working with [Primus](https://github.com/3rd-Eden/primus) a little slicker.
+Primus.IO makes working with [Primus](https://github.com/3rd-Eden/primus) a little slicker, it ads some hight level features like:
+
+- Emit-style `emit()` w/ arguments
+- Client & server side "ack" callbacks
+- Rooms
+- Serves `/primus.io.js`
+
 
 #### Warning: Still unstable, need some more work.
 
@@ -62,13 +68,6 @@ primus.on('open', function () {
 ```
 
 Check the examples for more use cases.
-
-## Features
-
-- Emit-style `emit()` w/ arguments
-- Client & server side "ack" callbacks
-- Rooms
-- Serves `/primus.io.js`
 
 ## Todo
 
