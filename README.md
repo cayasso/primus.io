@@ -5,6 +5,8 @@
 
 Primus.IO makes working with [Primus](https://github.com/3rd-Eden/primus) a little slicker.
 
+#### Warning: Still unstable, need some more work.
+
 ## Instalation
 
 ```
