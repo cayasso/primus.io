@@ -61,6 +61,13 @@ primus.on('open', function () {
 
 Check the examples for more use cases.
 
+## Features
+
+- Emit-style `emit()` w/ arguments
+- Client & server side "ack" callbacks
+- Rooms
+- Serves `/primus.io.js`
+
 ## Todo
 
 - Finish to add tests.
