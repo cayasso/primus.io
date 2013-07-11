@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Primus</title>
+  <script src="/primus/primus.js"></script>
+</head>
+<body>
+  <h1>
+    Welcome to Primus.IO example.
+  </h2>
+
+  <script>
+    var primus = new Primus('http://localhost:8081/?query=string');
+
+    primus.on('hello', function(msg){
+      console.log(msg);
+    });
+
+    primus.emit('join', 'news sport', function(){
+      console.log('joined rooms');
+    });
+
+    primus.on('sport', function(msg){
+      console.log(msg);
+    });
+
+    primus.on('news', function(msg){
+      console.log(msg);
+    });
+
+    /*primus.on('reconnect', function () {
+      console.log('primus: reconnect event happend');
+    });
+
+    primus.on('open', function () {
+      console.log('primus: connection established');
+    });
+
+    primus.on('error', function (err) {
+      console.log('primus: error event', err);
+    });
+
+    primus.on('data', function (data) {
+      console.log('primus: received data', data);
+    });
+
+    primus.on('end', function () {
+      console.log('primus: connection closed');
+    });*/
+  </script>

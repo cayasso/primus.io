@@ -1,0 +1,48 @@
+{
+  "name": "primus.io",
+  "version": "0.1.0",
+  "description": "Primus.IO makes working with Primus a little slicker.",
+  "author": "Jonathan Brumley <cayasso@gmail.com>",
+  "homepage": "https://github.com/cayasso/primus.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cayasso/primus.io.git"
+  },
+  "keywords": [
+    "connection",
+    "ws",
+    "rooms",
+    "channels",
+    "realtime",
+    "websocket",
+    "engine.io",
+    "socket.io",
+    "plugin",
+    "sockjs",
+    "browserchannel",
+    "primus",
+    "primus.io"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "debug": "0.7.x",
+    "primus": "1.0.x",
+    "primus-rooms": "0.1.x"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "expect.js": "*",
+    "primus": "1.0.x",
+    "socket.io-client": "~0.9.16",
+    "engine.io-client": "~0.6.3",
+    "sockjs-client-node": "0.0.0",
+    "engine.io": "~0.6.3",
+    "socket.io": "~0.9.16",
+    "ws": "~0.4.27",
+    "sockjs": "~0.3.7"
+  }
+}
