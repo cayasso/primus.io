@@ -1,9 +1,9 @@
-# Primus Rooms
+# Primus.IO
 
 [![Build Status](https://travis-ci.org/cayasso/primus.io.png?branch=master)](https://travis-ci.org/cayasso/primus.io)
 [![NPM version](https://badge.fury.io/js/primus.io.png)](http://badge.fury.io/js/primus.io)
 
-Node.JS module that adds room capabilities to a [Primus](https://github.com/3rd-Eden/primus) server.
+Primus.IO makes working with [Primus](https://github.com/3rd-Eden/primus) a little slicker.
 
 ## Instalation
 
@@ -16,46 +16,21 @@ npm install primus.io
 ### On the Server
 
 ```
-var primus = require('primus');
-var PrimusRooms = require('primus.io');
+var Primus = require('primus.io');
 var server = require('http').createServer();
-
-// add rooms to Primus
-PrimusRooms(Primus);
 
 var primus = new Primus(server, { transformer: 'websockets', parser: 'JSON' });
 
 primus.on('connection', function (spark) {
 
-  // joining room1 & room2
-  spark.join('room1');
-  spark.join('room2');
-  spark.join('room3');
+  // listen to hi events
+  spark.on('hi', function (msg) {
+    
+    console.log(msg); //-> hello world
 
-  // leaving room room2
-  spark.leave('room2');
+    // send back the hello to client
+    spark.emit('hello', 'hello from the server');
 
-  // get rooms I am connected to
-  var myRooms = spark.rooms();
-  console.log(myRooms); // ['room1', 'room3']
-
-  // send data to room1
-  spark.room('room1').write('hi');
-
-  // send data to room1 & room3
-  spark.room('room1 room3').write('hi');
-
-  // get clients connected to room1
-  spark.room('room1').clients(function(clients) {
-    console.log(clients); // output array of spark ids
-  });
-
-  // leaving all rooms
-  spark.leaveAll();
-
-  // join rooms on request
-  spark.on('message', function(room) {
-    spark.join(room);
   });
 
 });
@@ -71,11 +46,26 @@ var primus = Primus.connect('ws://localhost:8080');
 primus.on('open', function () {
 
   // Send request to join the news room
-  primus.write('news');
+  primus.emit('hi', 'hello world');
+
+  // listen to hello events
+  primus.on('hello', function (msg) {
+
+    console.log(msg); //-> hello from the server
+
+  });
 
 });
 
 ```
+
+Check the examples for more use cases.
+
+## Todo
+
+- Finish to add tests.
+- Add broadcast to all connected clients
+- Add more documentation
 
 ## Run tests
 
