@@ -5,8 +5,11 @@ var server = http.createServer();
 // The Primus server
 var primus = new Primus(server, { transformer: 'sockjs', parser: 'JSON' });
 
+primus.save('pri.js');
+
 // Listen to incoming connections
 primus.on('connection', function(spark){
+
   console.log('new client connected');
 
   spark.emit('ok', 'connected', function(msg){
@@ -26,13 +29,13 @@ primus.on('connection', function(spark){
 
 
 // The client
-function client() {
+function client(id) {
 
   var Socket = primus.Socket;
   var spark = new Socket('http://localhost:8080');
 
   spark.on('brazil', function(msg) {
-    console.log('Brazil is', '****', msg, '****');
+    console.log('Brazil is', '****', msg, '****', id);
   });
 
   spark.on('ok', function(msg, fn){
@@ -47,7 +50,8 @@ function client() {
 }
 
 // Set client
-client();
+client('client1');
+client('client2');
 
 
 // Start server

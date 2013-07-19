@@ -32,7 +32,8 @@
   "dependencies": {
     "debug": "0.7.x",
     "primus": "1.0.x",
-    "primus-rooms": "0.1.x"
+    "primus-rooms": "0.1.x",
+    "primus-emitter": "0.1.x"
   },
   "devDependencies": {
     "mocha": "*",
