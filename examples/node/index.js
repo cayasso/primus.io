@@ -5,8 +5,6 @@ var server = http.createServer();
 // The Primus server
 var primus = new Primus(server, { transformer: 'sockjs', parser: 'JSON' });
 
-primus.save('pri.js');
-
 // Listen to incoming connections
 primus.on('connection', function(spark){
 
