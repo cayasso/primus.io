@@ -155,7 +155,7 @@ Express 3 requires that you instantiate a `http.Server` to attach socket.io to f
 
 ### Sending and receiving events.
 
-Socket.IO allows you to emit and receive custom events. Besides `connect`, `message` and `disconnect`, you can emit custom events:
+Primus.IO allows you to emit and receive custom events:
 
 #### Server
 
@@ -187,6 +187,8 @@ Socket.IO allows you to emit and receive custom events. Besides `connect`, `mess
     primus.emit('private message', 'Bob', 'hi!');
   });  
 ```
+
+Check for more documentation on event emitting here [primus-emitter](https://github.com/cayasso/primus-emitter).
 
 ### Using channels (or known as namespaces).
 
@@ -233,6 +235,7 @@ Channels provides the benefit of `multiplexing` a single connection.
 Checkout this [post](https://www.rabbitmq.com/blog/2012/02/23/how-to-compose-apps-using-websockets/) 
 for more deep understanding of channels and why it's implemented like this.
 
+Also check out for more documentation on multiplexing here [primus-multiplex](https://github.com/cayasso/primus-multiplex).
 
 ### Acknowledgements
 
@@ -391,7 +394,7 @@ primus.on('open', function () {
 
 ```
 
-Check out more information on [rooms here](https://github.com/cayasso/primus-rooms).
+You can check for more documentation on rooms here [primus-rooms](https://github.com/cayasso/primus-rooms).
 
 ### Run tests
 
@@ -402,9 +405,13 @@ tests check out each individual plugin test.
 $ make test
 ```
 
+### Todo
+
+ * Add broadcasting from the server with `primus.emit`.  
+
 ### Credits
 
-To Arnout Kazemier [3rdEden](https://twitter.com/3rdEden) for the awesome idea of building [Primus](https://github.com/3rd-Eden/primus).
+ * To Arnout Kazemier [3rdEden](https://twitter.com/3rdEden) for the awesome idea of building [Primus](https://github.com/3rd-Eden/primus).
 
 ### License
 
