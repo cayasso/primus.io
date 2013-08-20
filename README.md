@@ -11,8 +11,7 @@ Primus.IO makes working with [Primus](https://github.com/3rd-Eden/primus) a litt
 - Rooms.
 - Serves `/primus.io.js`.
 
-Primus.IO combines the core `Primus` with `primus-rooms`, `primus-emitter` and `primus-multiplex` plugins to provide 
-an easy and still powerfull way of developing real time applications.
+Primus.IO combines the core [Primus](https://github.com/3rd-Eden/primus) with [primus-rooms](https://github.com/cayasso/primus-rooms), [primus-emitter](https://github.com/cayasso/primus-rooms) and [primus-multiplex](https://github.com/cayasso/primus-rooms) plugins to provide an easy and still powerfull way of developing real time applications.
 
 ## Instalation
 
