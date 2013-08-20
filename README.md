@@ -5,25 +5,26 @@
 
 Primus.IO makes working with [Primus](https://github.com/3rd-Eden/primus) a little slicker, it ads some hight level features like:
 
-- Emit-style `emit()` w/ arguments
-- Client & server side "ack" callbacks
-- Rooms
-- Serves `/primus.io.js`
+- Emit-style `emit()` w/ arguments.
+- Client & server side "ack" callbacks.
+- Multiplexing via channels.
+- Rooms.
+- Serves `/primus.io.js`.
 
 Primus.IO combines the core `Primus` with `primus-rooms`, `primus-emitter` and `primus-multiplex` plugins to provide 
 an easy and still powerfull way of developing real time applications.
 
 ## Instalation
 
-```
-npm install primus.io
+```bash
+$ npm install primus.io
 ```
 
 ## Usage
 
 ### On the Server
 
-```
+```javascript
 var Primus = require('primus.io');
 var server = require('http').createServer();
 
@@ -48,7 +49,7 @@ server.listen(8080);
 
 ### On the Client
 
-```
+```javascript
 var primus = Primus.connect('ws://localhost:8080');
 
 primus.on('open', function () {
@@ -77,7 +78,7 @@ these projects.
 
  * [primus-rooms](https://github.com/cayasso/primus-rooms)
  * [primus-emitter](https://github.com/cayasso/primus-emitter)
- * [primus-multiplexr](https://github.com/cayasso/primus-multiplex)
+ * [primus-multiplex](https://github.com/cayasso/primus-multiplex)
 
 ## Run tests
 
