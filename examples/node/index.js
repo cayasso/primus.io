@@ -1,9 +1,9 @@
-var Primus = require('../../');
+var PrimusIO = require('../../');
 var http = require('http');
 var server = http.createServer();
 
 // The Primus server
-var primus = new Primus(server, { transformer: 'sockjs', parser: 'JSON' });
+var primus = new PrimusIO(server, { transformer: 'websockets', parser: 'JSON' });
 
 // Listen to incoming connections
 primus.on('connection', function(spark){

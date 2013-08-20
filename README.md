@@ -10,8 +10,8 @@ Primus.IO makes working with [Primus](https://github.com/3rd-Eden/primus) a litt
 - Rooms
 - Serves `/primus.io.js`
 
-
-#### Warning: Still unstable, need some more work.
+Primus.IO combines the core `Primus` with `primus-rooms`, `primus-emitter` and `primus-multiplex` plugins to provide 
+an easy and still powerfull way of developing real time applications.
 
 ## Instalation
 
@@ -69,16 +69,23 @@ primus.on('open', function () {
 
 Check the examples for more use cases.
 
-## Todo
+## Documentation
 
-- Finish to add tests.
-- Add broadcast to all connected clients
-- Add more documentation
+Primus.IO combine the use of `primus-rooms`, `primus-emitter` and `primus-multiplex` 
+so for any additional documentation check out the docummentation provided in
+these projects.
+
+ * [primus-rooms](https://github.com/cayasso/primus-rooms)
+ * [primus-emitter](https://github.com/cayasso/primus-emitter)
+ * [primus-multiplexr](https://github.com/cayasso/primus-multiplex)
 
 ## Run tests
 
-```
-make test
+There will be some very minor integration test soon, for all the
+tests check out each individual plugin test.
+
+``` bash
+$ make test
 ```
 
 ## License

@@ -1,6 +1,6 @@
 {
   "name": "primus.io",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Primus.IO makes working with Primus a little slicker.",
   "author": "Jonathan Brumley <cayasso@gmail.com>",
   "homepage": "https://github.com/cayasso/primus.io",
@@ -32,19 +32,13 @@
   "dependencies": {
     "debug": "0.7.x",
     "primus": "1.0.x",
-    "primus-rooms": "0.1.x",
-    "primus-emitter": "0.1.x"
+    "primus-rooms": "1.0.x",
+    "primus-emitter": "1.0.x",
+    "primus-multiplex": "1.0.x"
   },
   "devDependencies": {
     "mocha": "*",
     "expect.js": "*",
-    "primus": "1.0.x",
-    "socket.io-client": "~0.9.16",
-    "engine.io-client": "~0.6.3",
-    "sockjs-client-node": "0.0.0",
-    "engine.io": "~0.6.3",
-    "socket.io": "~0.9.16",
-    "ws": "~0.4.27",
-    "sockjs": "~0.3.7"
+    "ws": "~0.4.27"
   }
 }
