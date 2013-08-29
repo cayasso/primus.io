@@ -1,6 +1,6 @@
 {
   "name": "primus.io",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Primus.IO makes working with Primus a little slicker.",
   "author": "Jonathan Brumley <cayasso@gmail.com>",
   "homepage": "https://github.com/cayasso/primus.io",
@@ -31,7 +31,7 @@
   "license": "MIT",
   "dependencies": {
     "debug": "0.7.x",
-    "primus": "1.2.x",
+    "primus": "~1.x.x",
     "primus-rooms": "1.0.x",
     "primus-emitter": "1.0.x",
     "primus-multiplex": "1.0.x"

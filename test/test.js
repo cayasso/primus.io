@@ -47,6 +47,7 @@ describe('primus.io', function (){
     });
   });
 
+
   it('should allow sending message from client to server', function(done){
     var srv = http();
     var primus = server(srv, opts);
