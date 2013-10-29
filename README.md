@@ -11,7 +11,7 @@ Primus.IO makes working with [Primus](https://github.com/3rd-Eden/primus) a litt
 - Rooms.
 - Serves `/primus.io.js`.
 
-Primus.IO combines the core [Primus](https://github.com/3rd-Eden/primus) with [primus-rooms](https://github.com/cayasso/primus-rooms), [primus-emitter](https://github.com/cayasso/primus-rooms) and [primus-multiplex](https://github.com/cayasso/primus-rooms) plugins to provide an easy and still powerfull way of developing real time applications.
+Primus.IO combines the core [Primus](https://github.com/3rd-Eden/primus) with [primus-rooms](https://github.com/cayasso/primus-rooms), [primus-emitter](https://github.com/cayasso/primus-emitter) and [primus-multiplex](https://github.com/cayasso/primus-multiplex) plugins to provide an easy and still powerfull way of developing real time applications.
 
 ### Instalation
 
@@ -111,9 +111,9 @@ Check the examples for more use cases.
 ```
 
 
-### Using with the Express 3+
+### Using with Express
 
-Express 3 requires that you instantiate a `http.Server` to attach socket.io to first:
+Express requires that you instantiate a `http.Server` to attach socket.io to first:
 
 #### Server
 
@@ -206,11 +206,11 @@ Channels provides the benefit of `multiplexing` a single connection.
   var news = primus.channel('news');
 
   chat.('connection', function (spark) {
-    spark.emit('a chat message', 'welcome to this chat');
+    spark.emit('chat', 'welcome to this chat');
   });
 
   news.on('connection', function (socket) {
-      socket.emit('item', { news: 'item' });
+      socket.emit('news', { news: 'item' });
   });
 
   server.listen(8080);
