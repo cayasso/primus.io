@@ -33,7 +33,7 @@
     "debug": "0.7.x",
     "primus": "~1.x.x",
     "primus-rooms": "1.1.x",
-    "primus-emitter": "1.0.x",
+    "primus-emitter": "1.1.x",
     "primus-multiplex": "1.1.x"
   },
   "devDependencies": {
