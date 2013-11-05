@@ -245,6 +245,110 @@ describe('primus.io', function (){
 
   });
 
+  it('should allow sending to multiple rooms from server', function(done){
+    this.timeout(0);
+    var srv = http();
+    var primus = server(srv, opts);
+    var total = 2;
+    var count = 0;
+
+    srv.listen(function(){
+
+      var c1 = client(srv, primus);
+      var c2 = client(srv, primus);
+      var c3 = client(srv, primus);
+      var c4 = client(srv, primus);
+
+      primus.on('connection', function(spark){
+        spark.on('join', function (room) {
+          spark.join(room, function () {
+            if (3 === count++) {
+              primus.room('room1 room2 room3').send('news');
+            }
+          });
+        });
+      });
+
+      c1.on('news', function (data) {
+        --total || finish();
+      });
+
+      c2.on('news', function (data) {
+        --total || finish();
+      });
+
+      c3.on('news', function (data) {
+        --total || finish();
+      });
+
+      c4.on('news', function (data) {
+        finish(new Error('not'));
+      });
+
+      function finish (data) {
+        srv.close();
+        done(data);
+      }
+
+      c1.send('join','room1');
+      c2.send('join','room2');
+      c3.send('join','room3');
+      c4.send('join','room4');
+
+    });
+  });
+
+  it('should allow broadcasting a message to multiple clients with emitter from channel;', function(done){
+    var srv = http();
+    var primus = server(srv, opts);
+    var a = primus.channel('a');
+    var count = 3;
+
+    srv.listen(function(){
+      a.on('connection', function (spark) {
+        spark.on('join', function (room) {
+          spark.join(room);
+        });
+
+        spark.on('msg', function (msg) {
+          if ('broadcast' === msg) {
+            a.room('r1 r2 r3').send('msg', 'hi');
+          }
+        });
+      });
+    });
+
+    var cl = client(srv, primus);
+    var c1a = cl.channel('a');
+    var c2a = cl.channel('a');
+    var c3a = cl.channel('a');
+
+    c1a.send('join', 'r1');
+    c2a.send('join', 'r2');
+    c3a.send('join', 'r3');
+
+    c1a.on('msg', function (msg) {
+      expect(msg).to.be('hi');
+      if (!--count) done();
+    });
+
+    c2a.on('msg', function (msg) {
+      expect(msg).to.be('hi');
+      if (!--count) done();
+    });
+
+    c3a.on('msg', function (msg) {
+      expect(msg).to.be('hi');
+      if (!--count) done();
+    });
+
+    setTimeout(function () {
+      var me = cl.channel('a');
+      me.send('msg', 'broadcast');
+    }, 0);
+
+  });
+
   it('should allow broadcasting a message to multiple clients with emitter', function(done){
     var srv = http();
     var primus = server(srv, opts);
