@@ -36,7 +36,7 @@ describe('primus.io', function (){
     var a = primus.channel('a');
     srv.listen(function(){
       a.on('connection', function (spark) {
-        spark.emit('msg', { hi: 'hello' });
+        spark.send('msg', { hi: 'hello' });
       });
     });
     var cl = client(srv, primus);
@@ -46,7 +46,6 @@ describe('primus.io', function (){
       done();
     });
   });
-
 
   it('should allow sending message from client to server', function(done){
     var srv = http();
@@ -62,7 +61,7 @@ describe('primus.io', function (){
     });
     var cl = client(srv, primus);
     var cla = cl.channel('a');
-    cla.emit('msg', { hi: 'hello' });
+    cla.send('msg', { hi: 'hello' });
   });
 
   it('should support ack on the client', function(done){
@@ -79,7 +78,7 @@ describe('primus.io', function (){
     });
     var cl = client(srv, primus);
     var cla = cl.channel('a');
-    cla.emit('msg', { hi: 'hello' }, function (msg) {
+    cla.send('msg', { hi: 'hello' }, function (msg) {
       expect(msg).to.be('thanks');
       done();
     });
@@ -91,7 +90,7 @@ describe('primus.io', function (){
     var a = primus.channel('a');
     srv.listen(function(){
       a.on('connection', function (spark) {
-        spark.emit('msg', { hi: 'hello' }, function (msg) {
+        spark.send('msg', { hi: 'hello' }, function (msg) {
           expect(msg).to.be('thanks');
           done();
         });
@@ -227,7 +226,7 @@ describe('primus.io', function (){
 
         spark.on('msg', function (msg) {
           if ('broadcast' === msg) {
-            spark.room('r1').emit('msg', 'hi');
+            spark.room('r1').send('msg', 'hi');
           }
         });
       });
@@ -238,10 +237,10 @@ describe('primus.io', function (){
       expect(msg).to.be('hi');
       done();
     });
-    c1a.emit('join', 'r1');
+    c1a.send('join', 'r1');
     setTimeout(function () {
       var me = cl.channel('a');
-      me.emit('msg', 'broadcast');
+      me.send('msg', 'broadcast');
     }, 0);
 
   });
@@ -260,7 +259,7 @@ describe('primus.io', function (){
 
         spark.on('msg', function (msg) {
           if ('broadcast' === msg) {
-            spark.room('r1 r2 r3').emit('msg', 'hi');
+            spark.room('r1 r2 r3').send('msg', 'hi');
           }
         });
       });
@@ -271,9 +270,9 @@ describe('primus.io', function (){
     var c2a = cl.channel('a');
     var c3a = cl.channel('a');
 
-    c1a.emit('join', 'r1');
-    c2a.emit('join', 'r2');
-    c3a.emit('join', 'r3');
+    c1a.send('join', 'r1');
+    c2a.send('join', 'r2');
+    c3a.send('join', 'r3');
 
     c1a.on('msg', function (msg) {
       expect(msg).to.be('hi');
@@ -292,7 +291,7 @@ describe('primus.io', function (){
 
     setTimeout(function () {
       var me = cl.channel('a');
-      me.emit('msg', 'broadcast');
+      me.send('msg', 'broadcast');
     }, 0);
 
   });

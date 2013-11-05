@@ -37,7 +37,7 @@ primus.on('connection', function (spark) {
     console.log(msg); //-> hello world
 
     // send back the hello to client
-    spark.emit('hello', 'hello from the server');
+    spark.send('hello', 'hello from the server');
 
   });
 
@@ -54,7 +54,7 @@ var primus = Primus.connect('ws://localhost:8080');
 primus.on('open', function () {
 
   // Send request to join the news room
-  primus.emit('hi', 'hello world');
+  primus.send('hi', 'hello world');
 
   // listen to hello events
   primus.on('hello', function (msg) {
@@ -90,7 +90,7 @@ Check the examples for more use cases.
   var primus = new Primus(server, { transformer: 'websockets', parser: 'JSON' });
 
   primus.on('connection', function (spark) {
-    spark.emit('news', { hello: 'world' });
+    spark.send('news', { hello: 'world' });
     spark.on('my other event', function (data) {
       console.log(data);
     });
@@ -106,7 +106,7 @@ Check the examples for more use cases.
 
   primus.on('news', function (data) {
     console.log(data);
-    primus.emit('my other event', { my: 'data' });
+    primus.send('my other event', { my: 'data' });
   });
 ```
 
@@ -128,7 +128,7 @@ Express requires that you instantiate a `http.Server` to attach socket.io to fir
   var primus = new Primus(server, { transformer: 'websockets', parser: 'JSON' });
 
   primus.on('connection', function (spark) {
-    spark.emit('news', { hello: 'world' });
+    spark.send('news', { hello: 'world' });
     spark.on('my other event', function (data) {
       console.log(data);
     });
@@ -149,7 +149,7 @@ Express requires that you instantiate a `http.Server` to attach socket.io to fir
 
   primus.on('news', function (data) {
     console.log(data);
-    primus.emit('my other event', { my: 'data' });
+    primus.send('my other event', { my: 'data' });
   });
 ```
 
@@ -167,7 +167,7 @@ Primus.IO allows you to emit and receive custom events:
 
   primus.on('connection', function (spark) {
 
-    spark.emit('welcome', 'welcome to the server');
+    spark.send('welcome', 'welcome to the server');
 
     spark.on('private message', function (from, msg) {
       console.log('I received a msg by ', from, ' saying ', msg);
@@ -184,7 +184,7 @@ Primus.IO allows you to emit and receive custom events:
   var primus = new Primus('http://localhost:8080/');
   
   primus.on('welcome', function (msg) {
-    primus.emit('private message', 'Bob', 'hi!');
+    primus.send('private message', 'Bob', 'hi!');
   });  
 ```
 
@@ -206,11 +206,11 @@ Channels provides the benefit of `multiplexing` a single connection.
   var news = primus.channel('news');
 
   chat.('connection', function (spark) {
-    spark.emit('chat', 'welcome to this chat');
+    spark.send('chat', 'welcome to this chat');
   });
 
   news.on('connection', function (socket) {
-      socket.emit('news', { news: 'item' });
+      socket.send('news', { news: 'item' });
   });
 
   server.listen(8080);
@@ -239,7 +239,7 @@ Also check out for more documentation on multiplexing here [primus-multiplex](ht
 
 ### Acknowledgements
 
-To get a callback when the server or client confirmed the message reception, simply pass a function as the last parameter of `.emit`.
+To get a callback when the server or client confirmed the message reception, simply pass a function as the last parameter of `.send`.
 
 #### Server
 
@@ -254,7 +254,7 @@ To get a callback when the server or client confirmed the message reception, sim
     console.log(name); //-> Bob
     fn('woot');
 
-    spark.emit('What is your name', function (name) {
+    spark.send('What is your name', function (name) {
       console.log(name); //-> My name is Ann
     });
   });
@@ -268,7 +268,7 @@ To get a callback when the server or client confirmed the message reception, sim
   var primus = new Primus('http://localhost:8080/');
 
   primus.on('open', function () {
-    primus.emit('chat', 'Bob', function (msg) {
+    primus.send('chat', 'Bob', function (msg) {
       console.log(msg); //-> woot
     });
 
@@ -344,10 +344,10 @@ primus.on('connection', function (spark) {
     spark.join(room, function () {
 
       // send message to this client
-      spark.emit('sport', 'you joined room ' + room);
+      spark.send('sport', 'you joined room ' + room);
 
       // send message to all clients except this one
-      spark.room(room).emit('sport', spark.id + ' joined room ' + room);
+      spark.room(room).send('sport', spark.id + ' joined room ' + room);
     });
   });
 
@@ -355,7 +355,7 @@ primus.on('connection', function (spark) {
     spark.leave(room, function () {
         
       // send message to this client
-      spark.emit('sport', 'you left room ' + room);
+      spark.send('sport', 'you left room ' + room);
     });
   });
 
@@ -372,10 +372,10 @@ var primus = Primus.connect('ws://localhost:8080');
 primus.on('open', function () {
 
   // Send request to join the sport room
-  primus.emit('join', 'sport');
+  primus.send('join', 'sport');
 
   // Then later send request to leave the sport room
-  primus.emit('leave', 'sport');
+  primus.send('leave', 'sport');
 
   // print server message
   primus.on('sport', function (message) {
@@ -407,7 +407,7 @@ $ make test
 
 ### Todo
 
- * Add broadcasting from the server with `primus.emit`.  
+ * Add broadcasting from the server with `primus.send`.  
 
 ### Credits
 

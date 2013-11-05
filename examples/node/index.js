@@ -10,7 +10,7 @@ primus.on('connection', function(spark){
 
   console.log('new client connected');
 
-  spark.emit('ok', 'connected', function(msg){
+  spark.send('ok', 'connected', function(msg){
     console.log(msg);
   });
 
@@ -20,7 +20,7 @@ primus.on('connection', function(spark){
   });
 
   setInterval(function(){
-    spark.room('news').emit('brazil', 'CHAMPION');
+    spark.room('news').send('brazil', 'CHAMPION');
   }, 2000);
 
 });
@@ -41,7 +41,7 @@ function client(id) {
     fn('client got message');
   });
 
-  spark.emit('join', 'news', function(msg){
+  spark.send('join', 'news', function(msg){
     console.log(msg);
   });
 

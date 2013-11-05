@@ -32,9 +32,9 @@
   "dependencies": {
     "debug": "0.7.x",
     "primus": "~1.x.x",
-    "primus-rooms": "1.1.x",
-    "primus-emitter": "1.1.x",
-    "primus-multiplex": "1.1.x"
+    "primus-rooms": "2.0.x",
+    "primus-emitter": "2.0.x",
+    "primus-multiplex": "2.0.x"
   },
   "devDependencies": {
     "mocha": "*",

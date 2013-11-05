@@ -16,7 +16,7 @@ var primus = new Primus(server, { transformer: 'websockets', parser: 'JSON' });
 primus.on('connection', function connection(spark) {
   console.log('new connection');
 
-  spark.emit('hello', 'world');
+  spark.send('hello', 'world');
 
   spark.on('join', function(room){
     spark.join.apply(this, arguments);
@@ -27,11 +27,11 @@ primus.on('connection', function connection(spark) {
   });
 
   setInterval(function(){
-    spark.room('sport').emit('sport', '[SPORT] Brazil Champion!');
+    spark.room('sport').send('sport', '[SPORT] Brazil Champion!');
   }, 3500);
 
   setInterval(function(){
-    spark.room('news').emit('news', '[NEWS] Breaking news!');
+    spark.room('news').send('news', '[NEWS] Breaking news!');
   }, 5000);
 });
 

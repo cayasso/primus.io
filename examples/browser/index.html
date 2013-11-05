@@ -17,7 +17,7 @@
       console.log(msg);
     });
 
-    primus.emit('join', 'news sport', function(){
+    primus.send('join', 'news sport', function(){
       console.log('joined rooms');
     });
 
