@@ -58,6 +58,20 @@ server.listen(8080);
 
 #### On the Client
 
+If using in the browser just:
+
+```html
+<script src="/primus/primus.io.js"></script>
+```
+
+If in NodeJS just use `require`:
+
+```javascript
+var Primus = require('primus.io');
+```
+
+Then create your `Primus` instance:
+
 ```javascript
 var primus = Primus.connect('ws://localhost:8080');
 
