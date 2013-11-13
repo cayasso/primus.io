@@ -5,7 +5,7 @@
 
 Primus.IO makes working with [Primus](https://github.com/3rd-Eden/primus) a little slicker, it ads some hight level features like:
 
-- Emit-style `emit()` w/ arguments.
+- Emit-style with `send()` w/ arguments.
 - Client & server side "ack" callbacks.
 - Multiplexing via channels.
 - Rooms.
