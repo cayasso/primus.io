@@ -330,6 +330,31 @@ To broadcast a message to all connected clients simple use the `primus.write` me
   });
 ```
 
+You can also broadcast messages to all clients by emitting events using the `primus.send` method. The same apply for channels.
+
+#### Server
+
+```javascript
+  var Primus = require('primus.io')
+    , server = require('http').Server();
+
+  var primus = new Primus(server, { transformer: 'websockets', parser: 'JSON' });
+
+  primus.send('news', 'Some data');
+
+});
+```
+
+#### Client
+
+```javascript
+  var primus = new Primus('http://localhost:8080/');
+
+  primus.on('news', function (data) {
+    console.log(data); //-> Some data
+  });
+```
+
 You can also use the `primus.forEach` method to iterate over all current connections.
 
 #### Server
