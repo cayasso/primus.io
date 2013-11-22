@@ -64,18 +64,18 @@ If using in the browser just:
 <script src="/primus/primus.io.js"></script>
 ```
 
-Then create your `Primus` instance like this:
+Then create your client `Primus` instance like this:
 
 ```javascript
-var primus = Primus.connect('ws://localhost:8080');
+var socket = Primus.connect('ws://localhost:8080');
 
-primus.on('open', function () {
+socket.on('open', function () {
 
   // Send request to join the news room
-  primus.send('hi', 'hello world');
+  socket.send('hi', 'hello world');
 
   // listen to hello events
-  primus.on('hello', function (msg) {
+  socket.on('hello', function (msg) {
 
     console.log(msg); //-> hello from the server
 
@@ -85,22 +85,43 @@ primus.on('open', function () {
 
 ```
 
-If in NodeJS just use `require`:
+If in NodeJS using the same `Primus` instance that created the server then do:
+
+```javascript
+// create socket instance
+var socket = new primus.Socket('ws://localhost:8080');
+
+socket.on('open', function () {
+
+  // Send request to join the news room
+  socket.send('hi', 'hello world');
+
+  // listen to hello events
+  socket.on('hello', function (msg) {
+
+    console.log(msg); //-> hello from the server
+
+  });
+
+});
+```
+
+If using a different instance of NodeJS then do this:
 
 ```javascript
 // create a socket
-var Socket = require('primus.io').createSocket();
+var Socket = require('primus.io').createSocket({ transformer: 'websockets' });
 
 // get socket instance
-var primus = new Socket('ws://localhost:8080');
+var socket = new Socket('ws://localhost:8080');
 
-primus.on('open', function () {
+socket.on('open', function () {
 
   // Send request to join the news room
-  primus.send('hi', 'hello world');
+  socket.send('hi', 'hello world');
 
   // listen to hello events
-  primus.on('hello', function (msg) {
+  socket.on('hello', function (msg) {
 
     console.log(msg); //-> hello from the server
 
