@@ -64,13 +64,7 @@ If using in the browser just:
 <script src="/primus/primus.io.js"></script>
 ```
 
-If in NodeJS just use `require`:
-
-```javascript
-var Primus = require('primus.io');
-```
-
-Then create your `Primus` instance:
+Then create your `Primus` instance like this:
 
 ```javascript
 var primus = Primus.connect('ws://localhost:8080');
@@ -89,6 +83,30 @@ primus.on('open', function () {
 
 });
 
+```
+
+If in NodeJS just use `require`:
+
+```javascript
+// create a socket
+var Socket = require('primus.io').createSocket();
+
+// get socket instance
+var primus = new Socket('ws://localhost:8080');
+
+primus.on('open', function () {
+
+  // Send request to join the news room
+  primus.send('hi', 'hello world');
+
+  // listen to hello events
+  primus.on('hello', function (msg) {
+
+    console.log(msg); //-> hello from the server
+
+  });
+
+});
 ```
 
 Check the examples for more use cases.
