@@ -13,6 +13,8 @@ Primus.IO makes working with [Primus](https://github.com/3rd-Eden/primus) a litt
 
 Primus.IO combines the core [Primus](https://github.com/3rd-Eden/primus) with [primus-rooms](https://github.com/cayasso/primus-rooms), [primus-emitter](https://github.com/cayasso/primus-emitter) and [primus-multiplex](https://github.com/cayasso/primus-multiplex) plugins to provide an easy and still powerfull way of developing real time applications.
 
+For more details on options or additional methods please check each individual module README file and test cases.
+
 ## Version 2.x (IMPORTANT)
 
 As of `primus.io` version 2+ the `emit` method will no longer be supported, instead use the `send` method, this is because `emit` is widely used by Primus for internal events, so this required some hacks and also an event black list to maintain for  avoiding event collisions, for the sake of simplicity and the sake of maintainability I decided to drop the method in `primus-emitter`, the new method `send` works the same as emit, and it removes hacks and the event blacklist to support.
@@ -486,16 +488,9 @@ You can check for more documentation on rooms here [primus-rooms](https://github
 
 ### Run tests
 
-There will be some very minor integration test soon, for all the
-tests check out each individual plugin test.
-
 ``` bash
 $ make test
 ```
-
-### Todo
-
- * Add broadcasting from the server with `primus.send`.  
 
 ### Credits
 
