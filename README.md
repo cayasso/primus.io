@@ -15,6 +15,8 @@ Primus.IO combines the core [Primus](https://github.com/3rd-Eden/primus) with [p
 
 For more details on options or additional methods please check each individual module README file and test cases.
 
+## Compatibility
+####This project is currently compatible with the 1.+ versions of Primus, it is not compatible with the latest [2.0.+ release](https://github.com/primus/primus/releases/tag/2.0.0), changes are in the works for getting all plugins aligned with the latest Primus. Stay tuned!!!####
 ## Version 2.x (IMPORTANT)
 
 As of `primus.io` version 2+ the `emit` method will no longer be supported, instead use the `send` method, this is because `emit` is widely used by Primus for internal events, so this required some hacks and also an event black list to maintain for  avoiding event collisions, for the sake of simplicity and the sake of maintainability I decided to drop the method in `primus-emitter`, the new method `send` works the same as emit, and it removes hacks and the event blacklist to support.
