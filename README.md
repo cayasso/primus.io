@@ -435,7 +435,7 @@ primus.on('connection', function (spark) {
       spark.send('sport', 'you joined room ' + room);
 
       // send message to all clients except this one
-      spark.room(room).send('sport', spark.id + ' joined room ' + room);
+      spark.room(room).except(spark.id).send('sport', spark.id + ' joined room ' + room);
     });
   });
 
