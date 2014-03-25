@@ -31,14 +31,15 @@
   "license": "MIT",
   "dependencies": {
     "debug": "0.7.x",
-    "primus": "~2.x.x",
+    "primus": "git://github.com/primus/primus.git",
     "primus-rooms": "3.x.x",
     "primus-emitter": "3.x.x",
     "primus-multiplex": "3.x.x"
+    
   },
   "devDependencies": {
-    "mocha": "*",
-    "expect.js": "*",
-    "ws": "~0.4.27"
+    "expect.js": "0.3.1",
+    "mocha": "1.18.2",
+    "ws": "0.4.27"
   }
 }
