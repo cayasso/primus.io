@@ -15,7 +15,13 @@ function server(srv, opts) {
   return PrimusIO(srv, opts);
 }
 
-describe('primus.io', function (){
+describe('primus.io', function() {
+
+  it('should have a primus.io.js middleware layer', function(){
+    var srv = http();
+    var primus = server(srv, opts);
+    expect(~primus.indexOfLayer('primus.io.js')).to.be.ok();
+  });
 
   it('should play nice with emitter', function(done){
     var srv = http();
@@ -63,7 +69,7 @@ describe('primus.io', function (){
     var cl = new Socket('http://' + addr.address + ':' + addr.port);
     var cla = cl.channel('a');    
   });
-
+  
   it('should allow sending message from client to server', function(done){
     var srv = http();
     var primus = server(srv, opts);
