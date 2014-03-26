@@ -20,7 +20,6 @@ describe('primus.io', function (){
   it('should play nice with emitter', function(done){
     var srv = http();
     var primus = server(srv, opts);
-    //primus.save('testt.js');
     var a = primus.channel('a');
     srv.listen(function(){
       a.on('connection', function (spark) {

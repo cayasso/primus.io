@@ -31,6 +31,7 @@
   "license": "MIT",
   "dependencies": {
     "debug": "0.7.x",
+    "eventemitter3": "0.1.x",
     "primus": "git://github.com/primus/primus.git",
     "primus-rooms": "3.x.x",
     "primus-emitter": "3.x.x",
