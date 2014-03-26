@@ -20,6 +20,7 @@ describe('primus.io', function (){
   it('should play nice with emitter', function(done){
     var srv = http();
     var primus = server(srv, opts);
+    //primus.save('testt.js');
     var a = primus.channel('a');
     srv.listen(function(){
       a.on('connection', function (spark) {
@@ -45,6 +46,23 @@ describe('primus.io', function (){
       expect(msg).to.be.eql({ hi: 'hello' });
       done();
     });
+  });
+
+  it('should have channel method when using createSocket', function(done){
+    var srv = http();
+    var primus = server(srv, opts);
+    var a = primus.channel('a');
+    
+    srv.listen(function(){
+      a.on('connection', function (spark) {
+        done();
+      });
+    });
+
+    var addr = srv.address();
+    var Socket = PrimusIO.createSocket(opts);
+    var cl = new Socket('http://' + addr.address + ':' + addr.port);
+    var cla = cl.channel('a');    
   });
 
   it('should allow sending message from client to server', function(done){
