@@ -139,7 +139,7 @@ Check the examples for more use cases.
 #### Server
 
 ```javascript
-  var Primus = require('primus')
+  var Primus = require('primus.io')
     , http = require('http')
     , fs = require('fs');
 
