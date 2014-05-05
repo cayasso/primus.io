@@ -139,7 +139,7 @@ Check the examples for more use cases.
 #### Server
 
 ```javascript
-  var Primus = require('primus')
+  var Primus = require('primus.io')
     , http = require('http')
     , fs = require('fs');
 
@@ -268,7 +268,7 @@ Channels provides the benefit of `multiplexing` a single connection.
   var chat = primus.channel('chat');
   var news = primus.channel('news');
 
-  chat.('connection', function (spark) {
+  chat.on('connection', function (spark) {
     spark.send('chat', 'welcome to this chat');
   });
 
