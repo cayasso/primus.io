@@ -1,6 +1,6 @@
 {
   "name": "primus.io",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Primus.IO makes working with Primus a little slicker.",
   "author": "Jonathan Brumley <cayasso@gmail.com>",
   "homepage": "https://github.com/cayasso/primus.io",
@@ -32,7 +32,7 @@
   "dependencies": {
     "debug": "0.7.x",
     "eventemitter3": "0.1.x",
-    "primus": "2.1.x",
+    "primus": "2.2.x",
     "primus-rooms": "3.x.x",
     "primus-emitter": "3.x.x",
     "primus-multiplex": "3.x.x"
