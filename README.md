@@ -1,7 +1,7 @@
 # Primus.IO
 
-[![Build Status](https://travis-ci.org/cayasso/primus.io.png?branch=master)](https://travis-ci.org/cayasso/primus.io)
-[![NPM version](https://badge.fury.io/js/primus.io.png)](http://badge.fury.io/js/primus.io)
+[![Build Status](https://travis-ci.org/cayasso/primus.io.svg?branch=master)](https://travis-ci.org/cayasso/primus.io)
+[![NPM version](https://badge.fury.io/js/primus.io.svg)](http://badge.fury.io/js/primus.io)
 
 Primus.IO makes working with [Primus](https://github.com/3rd-Eden/primus) a little slicker, it ads some hight level features like:
 
@@ -23,7 +23,7 @@ For more details on options or additional methods please check each individual m
 $ npm install primus.io@2.0.3
 ```
 
-### Instalation
+### Installation
 
 ```bash
 $ npm install primus.io
@@ -43,7 +43,7 @@ primus.on('connection', function (spark) {
 
   // listen to hi events
   spark.on('hi', function (msg) {
-    
+
     console.log(msg); //-> hello world
 
     // send back the hello to client
@@ -139,7 +139,7 @@ Check the examples for more use cases.
 #### Server
 
 ```javascript
-  var Primus = require('primus')
+  var Primus = require('primus.io')
     , http = require('http')
     , fs = require('fs');
 
@@ -245,10 +245,10 @@ Primus.IO allows you to emit and receive custom events:
 
 ```javascript
   var primus = new Primus('http://localhost:8080/');
-  
+
   primus.on('welcome', function (msg) {
     primus.send('private message', 'Bob', 'hi!');
-  });  
+  });
 ```
 
 Check for more documentation on event emitting here [primus-emitter](https://github.com/cayasso/primus-emitter).
@@ -268,7 +268,7 @@ Channels provides the benefit of `multiplexing` a single connection.
   var chat = primus.channel('chat');
   var news = primus.channel('news');
 
-  chat.('connection', function (spark) {
+  chat.on('connection', function (spark) {
     spark.send('chat', 'welcome to this chat');
   });
 
@@ -285,17 +285,17 @@ Channels provides the benefit of `multiplexing` a single connection.
   var primus = new Primus('http://localhost:8080/')
     , chat = primus.channel('chat')
     , news = primus.channel('news');
-  
+
   chat.on('chat', function (msg) {
     console.log(msg); //-> welcome to this chat
   });
-  
+
   news.on('news', function (data) {
     console.log(data.news); //-> item
   });
 ```
 
-Checkout this [post](https://www.rabbitmq.com/blog/2012/02/23/how-to-compose-apps-using-websockets/) 
+Checkout this [post](https://www.rabbitmq.com/blog/2012/02/23/how-to-compose-apps-using-websockets/)
 for more deep understanding of channels and why it's implemented like this.
 
 Also check out for more documentation on multiplexing here [primus-multiplex](https://github.com/cayasso/primus-multiplex).
@@ -441,7 +441,7 @@ primus.on('connection', function (spark) {
 
   spark.on('leave', function (room) {
     spark.leave(room, function () {
-        
+
       // send message to this client
       spark.send('sport', 'you left room ' + room);
     });
@@ -467,8 +467,8 @@ primus.on('open', function () {
 
   // print server message
   primus.on('sport', function (message) {
-    
-    console.log(message); 
+
+    console.log(message);
 
     // First output is
     //-> you joined room sport
