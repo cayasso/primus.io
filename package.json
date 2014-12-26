@@ -38,8 +38,8 @@
   },
   "devDependencies": {
     "expect.js": "0.3.1",
-    "mocha": "^1.21.4",
+    "mocha": "^2.1.0",
     "pre-commit": "0.0.9",
-    "ws": "^0.4.32"
+    "ws": "^0.6.3"
   }
 }
