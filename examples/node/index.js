@@ -1,9 +1,15 @@
 var PrimusIO = require('../../');
+var Emitter = require('primus-emitter');
+var Rooms = require('primus-rooms');
 var http = require('http');
 var server = http.createServer();
 
 // The Primus server
 var primus = new PrimusIO(server, { transformer: 'websockets', parser: 'JSON' });
+
+// Add plugins needed for room and emit functionality
+primus.use('rooms', Rooms);
+primus.use('emitter', Emitter);
 
 // Listen to incoming connections
 primus.on('connection', function(spark){
