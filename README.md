@@ -3,7 +3,7 @@
 [![Build Status](https://img.shields.io/travis/cayasso/primus.io/master.svg)](https://travis-ci.org/cayasso/primus.io)
 [![NPM version](https://img.shields.io/npm/v/primus.io.svg)](https://www.npmjs.com/package/primus.io)
 
-Primus.IO makes working with [Primus](https://github.com/3rd-Eden/primus) a little slicker, it ads some hight level features like:
+Primus.IO makes working with [Primus](https://github.com/3rd-Eden/primus) a little slicker, it ads some high-level features like:
 
 - Emit-style with `send()` w/ arguments.
 - Client & server side "ack" callbacks.
