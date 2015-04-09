@@ -15,14 +15,6 @@ Primus.IO combines the core [Primus](https://github.com/3rd-Eden/primus) with [p
 
 For more details on options or additional methods please check each individual module README file and test cases.
 
-### Compatibility
-
-`primus.io@3.x.x` is now compatible with [primus@2.x.x](https://github.com/primus/primus/releases/tag/2.0.0) series, if for some reason you need to continue using an old version of `primus` then you can always go back and install a previous version like so:
-
-```bash
-$ npm install primus.io@2.0.3
-```
-
 ### Installation
 
 ```bash
