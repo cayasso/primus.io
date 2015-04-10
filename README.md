@@ -3,7 +3,7 @@
 [![Build Status](https://img.shields.io/travis/cayasso/primus.io/master.svg)](https://travis-ci.org/cayasso/primus.io)
 [![NPM version](https://img.shields.io/npm/v/primus.io.svg)](https://www.npmjs.com/package/primus.io)
 
-Primus.IO makes working with [Primus](https://github.com/3rd-Eden/primus) a little slicker, it adds some high-level features like:
+Primus.IO makes working with [Primus](https://github.com/primus/primus) a little slicker, it adds some high-level features like:
 
 - Emit-style with `send()` w/ arguments.
 - Client & server side "ack" callbacks.
@@ -11,7 +11,7 @@ Primus.IO makes working with [Primus](https://github.com/3rd-Eden/primus) a litt
 - Rooms.
 - Serves `/primus.io.js`.
 
-Primus.IO combines the core [Primus](https://github.com/3rd-Eden/primus) with [primus-rooms](https://github.com/cayasso/primus-rooms), [primus-emitter](https://github.com/cayasso/primus-emitter) and [primus-multiplex](https://github.com/cayasso/primus-multiplex) plugins to provide an easy and still powerfull way of developing real time applications.
+Primus.IO combines the core [Primus](https://github.com/primus/primus) with [primus-rooms](https://github.com/cayasso/primus-rooms), [primus-emitter](https://github.com/cayasso/primus-emitter) and [primus-multiplex](https://github.com/cayasso/primus-multiplex) plugins to provide an easy and still powerfull way of developing real time applications.
 
 For more details on options or additional methods please check each individual module README file and test cases.
 
@@ -405,7 +405,7 @@ You can also use the `primus.forEach` method to iterate over all current connect
 });
 ```
 
-Check out more information on [broadcasting with Primus](https://github.com/3rd-Eden/primus#broadcasting).
+Check out more information on [broadcasting with Primus](https://github.com/primus/primus#broadcasting).
 
 ### Rooms
 
@@ -484,7 +484,7 @@ $ make test
 
 ### Credits
 
- * To Arnout Kazemier [3rdEden](https://twitter.com/3rdEden) for the awesome idea of building [Primus](https://github.com/3rd-Eden/primus).
+ * To Arnout Kazemier [3rdEden](https://twitter.com/3rdEden) for the awesome idea of building [Primus](https://github.com/primus/primus).
 
 ### License
 
