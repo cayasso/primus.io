@@ -4,10 +4,12 @@ var expect = require('expect.js');
 var opts = { transformer: 'websockets', parser: 'JSON' };
 
 // creates the client
-function client(srv, primus, port){
+function client(srv, primus) {
   var addr = srv.address();
-  var url = 'http://' + addr.address + ':' + (port || addr.port);
-  return new primus.Socket(url);
+
+  if (!addr) throw new Error('Server is not listening');
+
+  return new primus.Socket('http://localhost:' + addr.port);
 }
 
 // creates the server
@@ -57,7 +59,7 @@ describe('primus.io', function() {
     var srv = http();
     var primus = server(srv, opts);
     var a = primus.channel('a');
-    
+
     srv.listen(function(){
       a.on('connection', function (spark) {
         done();
@@ -66,10 +68,10 @@ describe('primus.io', function() {
 
     var addr = srv.address();
     var Socket = PrimusIO.createSocket(opts);
-    var cl = new Socket('http://' + addr.address + ':' + addr.port);
-    var cla = cl.channel('a');    
+    var cl = new Socket('http://localhost:' + addr.port);
+    var cla = cl.channel('a');
   });
-  
+
   it('should allow sending message from client to server', function(done){
     var srv = http();
     var primus = server(srv, opts);
