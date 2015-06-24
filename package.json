@@ -30,14 +30,14 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "eventemitter3": "0.1.x",
-    "primus": "3.0.x",
-    "primus-rooms": "3.x.x",
-    "primus-emitter": "3.x.x",
-    "primus-multiplex": "3.x.x"
+    "eventemitter3": "1.1.x",
+    "primus": "3.1.x",
+    "primus-emitter": "3.1.x",
+    "primus-multiplex": "3.2.x",
+    "primus-rooms": "3.1.x"
   },
   "devDependencies": {
-    "expect.js": "0.3.1",
+    "expect.js": "^0.3.1",
     "mocha": "^2.1.0",
     "pre-commit": "^1.0.6",
     "ws": "^0.7.1"
