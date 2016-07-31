@@ -3,7 +3,8 @@
 [![Build Status](https://img.shields.io/travis/cayasso/primus.io/master.svg)](https://travis-ci.org/cayasso/primus.io)
 [![NPM version](https://img.shields.io/npm/v/primus.io.svg)](https://www.npmjs.com/package/primus.io)
 
-Primus.IO makes working with [Primus](https://github.com/primus/primus) a little slicker, it adds some high-level features like:
+Primus.IO makes working with [Primus](https://github.com/primus/primus) a
+little slicker, it adds some high-level features like:
 
 - Emit-style with `send()` w/ arguments.
 - Client & server side "ack" callbacks.
@@ -11,9 +12,14 @@ Primus.IO makes working with [Primus](https://github.com/primus/primus) a little
 - Rooms.
 - Serves `/primus.io.js`.
 
-Primus.IO combines the core [Primus](https://github.com/primus/primus) with [primus-rooms](https://github.com/cayasso/primus-rooms), [primus-emitter](https://github.com/cayasso/primus-emitter) and [primus-multiplex](https://github.com/cayasso/primus-multiplex) plugins to provide an easy and still powerfull way of developing real time applications.
+Primus.IO combines the core [Primus](https://github.com/primus/primus)
+with [primus-rooms](https://github.com/cayasso/primus-rooms),
+[primus-emitter](https://github.com/cayasso/primus-emitter) and
+[primus-multiplex](https://github.com/cayasso/primus-multiplex) plugins to
+provide an easy and still powerfull way of developing real time applications.
 
-For more details on options or additional methods please check each individual module README file and test cases.
+For more details on options or additional methods please check each individual
+module README file and test cases.
 
 ### Installation
 
@@ -29,20 +35,17 @@ $ npm install primus.io
 var Primus = require('primus.io');
 var server = require('http').createServer();
 
-var primus = new Primus(server, { transformer: 'websockets', parser: 'JSON' });
+var primus = new Primus(server);
 
 primus.on('connection', function (spark) {
 
   // listen to hi events
   spark.on('hi', function (msg) {
-
     console.log(msg); //-> hello world
 
     // send back the hello to client
     spark.send('hello', 'hello from the server');
-
   });
-
 });
 
 server.listen(8080);
@@ -59,7 +62,7 @@ If using in the browser just:
 Then create your client `Primus` instance like this:
 
 ```javascript
-var socket = Primus.connect('ws://localhost:8080');
+var socket = Primus.connect('http://localhost:8080');
 
 socket.on('open', function () {
 
@@ -68,11 +71,8 @@ socket.on('open', function () {
 
   // listen to hello events
   socket.on('hello', function (msg) {
-
     console.log(msg); //-> hello from the server
-
   });
-
 });
 
 ```
@@ -81,7 +81,7 @@ If in NodeJS using the same `Primus` instance that created the server then do:
 
 ```javascript
 // create socket instance
-var socket = new primus.Socket('ws://localhost:8080');
+var socket = new primus.Socket('http://localhost:8080');
 
 socket.on('open', function () {
 
@@ -90,11 +90,8 @@ socket.on('open', function () {
 
   // listen to hello events
   socket.on('hello', function (msg) {
-
     console.log(msg); //-> hello from the server
-
   });
-
 });
 ```
 
@@ -102,10 +99,10 @@ If using a different instance of NodeJS then do this:
 
 ```javascript
 // create a socket
-var Socket = require('primus.io').createSocket({ transformer: 'websockets' });
+var Socket = require('primus.io').createSocket();
 
 // get socket instance
-var socket = new Socket('ws://localhost:8080');
+var socket = new Socket('http://localhost:8080');
 
 socket.on('open', function () {
 
@@ -114,11 +111,8 @@ socket.on('open', function () {
 
   // listen to hello events
   socket.on('hello', function (msg) {
-
     console.log(msg); //-> hello from the server
-
   });
-
 });
 ```
 
@@ -131,81 +125,80 @@ Check the examples for more use cases.
 #### Server
 
 ```javascript
-  var Primus = require('primus.io')
-    , http = require('http')
-    , fs = require('fs');
+var Primus = require('primus.io')
+  , http = require('http')
+  , fs = require('fs');
 
-  // serve index.html
-  var server = http.createServer(function server(req, res) {
-    res.setHeader('Content-Type', 'text/html');
-    fs.createReadStream(__dirname + '/index.html').pipe(res);
+// serve index.html
+var server = http.createServer(function server(req, res) {
+  res.setHeader('Content-Type', 'text/html');
+  fs.createReadStream(__dirname + '/index.html').pipe(res);
+});
+
+// Primus server
+var primus = new Primus(server);
+
+primus.on('connection', function (spark) {
+  spark.send('news', { hello: 'world' });
+  spark.on('my other event', function (data) {
+    console.log(data);
   });
+});
 
-  // Primus server
-  var primus = new Primus(server, { transformer: 'websockets', parser: 'JSON' });
-
-  primus.on('connection', function (spark) {
-    spark.send('news', { hello: 'world' });
-    spark.on('my other event', function (data) {
-      console.log(data);
-    });
-  });
-
-  server.listen(8080);
+server.listen(8080);
 ```
 
 #### Client
 
 ```javascript
-  var primus = new Primus('http://localhost:8080/');
+var primus = new Primus('http://localhost:8080/');
 
-  primus.on('news', function (data) {
-    console.log(data);
-    primus.send('my other event', { my: 'data' });
-  });
+primus.on('news', function (data) {
+  console.log(data);
+  primus.send('my other event', { my: 'data' });
+});
 ```
-
 
 ### Using with Express
 
-Express requires that you instantiate a `http.Server` to attach socket.io to first:
+Express requires that you instantiate a `http.Server` first:
 
 #### Server
 
 ```javascript
-  var express = require('express')
-    , Primus = require('primus.io')
-    , http = require('http')
-    , app = express()
-    , server = http.createServer(app);
+var express = require('express')
+  , Primus = require('primus.io')
+  , http = require('http')
+  , app = express()
+  , server = http.createServer(app);
 
-  // Primus server
-  var primus = new Primus(server, { transformer: 'websockets', parser: 'JSON' });
+// Primus server
+var primus = new Primus(server);
 
-  primus.on('connection', function (spark) {
-    spark.send('news', { hello: 'world' });
-    spark.on('my other event', function (data) {
-      console.log(data);
-    });
+primus.on('connection', function (spark) {
+  spark.send('news', { hello: 'world' });
+  spark.on('my other event', function (data) {
+    console.log(data);
   });
+});
 
-  // serve index.html
-  app.get('/', function (req, res) {
-    res.sendfile(__dirname + '/index.html');
-  });
+// serve index.html
+app.get('/', function (req, res) {
+  res.sendfile(__dirname + '/index.html');
+});
 
-  server.listen(8080);
+server.listen(8080);
 ```
 
 #### Client
 
 ```javascript
-  var primus = new Primus('http://localhost:8080/');
+var primus = new Primus('http://localhost:8080/');
 
-  primus.on('news', function (data) {
-    console.log(data);
-    primus.send('my other event', { my: 'data' });
-  });
+primus.on('news', function (data) {
+  console.log(data);
+  primus.send('my other event', { my: 'data' });
+});
 ```
 
 ### Sending and receiving events.
@@ -215,35 +208,35 @@ Primus.IO allows you to emit and receive custom events:
 #### Server
 
 ```javascript
-  var Primus = require('primus.io')
-    , server = require('http').Server();
+var Primus = require('primus.io')
+  , server = require('http').Server();
 
-  var primus = new Primus(server, { transformer: 'websockets', parser: 'JSON' });
+var primus = new Primus(server);
 
-  primus.on('connection', function (spark) {
+primus.on('connection', function (spark) {
 
-    spark.send('welcome', 'welcome to the server');
+  spark.send('welcome', 'welcome to the server');
 
-    spark.on('private message', function (from, msg) {
-      console.log('I received a msg by ', from, ' saying ', msg);
-    });
-
+  spark.on('private message', function (from, msg) {
+    console.log('I received a msg by', from, 'saying', msg);
   });
+});
 
-  server.listen(8080);
+server.listen(8080);
 ```
 
 #### Client
 
 ```javascript
-  var primus = new Primus('http://localhost:8080/');
+var primus = new Primus('http://localhost:8080/');
 
-  primus.on('welcome', function (msg) {
-    primus.send('private message', 'Bob', 'hi!');
-  });
+primus.on('welcome', function (msg) {
+  primus.send('private message', 'Bob', 'hi!');
+});
 ```
 
-Check for more documentation on event emitting here [primus-emitter](https://github.com/cayasso/primus-emitter).
+Check for more documentation on event emitting here
+[primus-emitter](https://github.com/cayasso/primus-emitter).
 
 ### Using channels (or known as namespaces).
 
@@ -252,160 +245,162 @@ Channels provides the benefit of `multiplexing` a single connection.
 #### Server
 
 ```javascript
-  var Primus = require('primus.io')
-    , server = require('http').Server();
+var Primus = require('primus.io')
+  , server = require('http').Server();
 
-  var primus = new Primus(server, { transformer: 'websockets', parser: 'JSON' });
+var primus = new Primus(server);
 
-  var chat = primus.channel('chat');
-  var news = primus.channel('news');
+var chat = primus.channel('chat');
+var news = primus.channel('news');
 
-  chat.on('connection', function (spark) {
-    spark.send('chat', 'welcome to this chat');
-  });
+chat.on('connection', function (spark) {
+  spark.send('chat', 'welcome to this chat');
+});
 
-  news.on('connection', function (socket) {
-      socket.send('news', { news: 'item' });
-  });
+news.on('connection', function (socket) {
+  socket.send('news', { news: 'item' });
+});
 
-  server.listen(8080);
+server.listen(8080);
 ```
 
 #### Client
 
 ```javascript
-  var primus = new Primus('http://localhost:8080/')
-    , chat = primus.channel('chat')
-    , news = primus.channel('news');
+var primus = new Primus('http://localhost:8080/')
+  , chat = primus.channel('chat')
+  , news = primus.channel('news');
 
-  chat.on('chat', function (msg) {
-    console.log(msg); //-> welcome to this chat
-  });
+chat.on('chat', function (msg) {
+  console.log(msg); //-> welcome to this chat
+});
 
-  news.on('news', function (data) {
-    console.log(data.news); //-> item
-  });
+news.on('news', function (data) {
+  console.log(data.news); //-> item
+});
 ```
 
 Checkout this [post](https://www.rabbitmq.com/blog/2012/02/23/how-to-compose-apps-using-websockets/)
 for more deep understanding of channels and why it's implemented like this.
 
-Also check out for more documentation on multiplexing here [primus-multiplex](https://github.com/cayasso/primus-multiplex).
+Also check out for more documentation on multiplexing here
+[primus-multiplex](https://github.com/cayasso/primus-multiplex).
 
 ### Acknowledgements
 
-To get a callback when the server or client confirmed the message reception, simply pass a function as the last parameter of `.send`.
+To get a callback when the server or client confirmed the message reception,
+simply pass a function as the last parameter of `.send`.
 
 #### Server
 
 ```javascript
-  var Primus = require('primus.io')
-    , server = require('http').Server();
+var Primus = require('primus.io')
+  , server = require('http').Server();
 
-  var primus = new Primus(server, { transformer: 'websockets', parser: 'JSON' });
+var primus = new Primus(server);
 
-  primus.on('connection', function (spark) {
-    spark.on('chat', function (name, fn) {
-    console.log(name); //-> Bob
-    fn('woot');
+primus.on('connection', function (spark) {
+  spark.on('chat', function (name, fn) {
+  console.log(name); //-> Bob
+  fn('woot');
 
-    spark.send('What is your name', function (name) {
-      console.log(name); //-> My name is Ann
-    });
+  spark.send('What is your name', function (name) {
+    console.log(name); //-> My name is Ann
   });
-
 });
 ```
 
 #### Client
 
 ```javascript
-  var primus = new Primus('http://localhost:8080/');
+var primus = new Primus('http://localhost:8080/');
 
-  primus.on('open', function () {
-    primus.send('chat', 'Bob', function (msg) {
-      console.log(msg); //-> woot
-    });
-
-    primus.on('What is your name', function (fn) {
-      fn('My name is Ann')
-    });
+primus.on('open', function () {
+  primus.send('chat', 'Bob', function (msg) {
+    console.log(msg); //-> woot
   });
+
+  primus.on('What is your name', function (fn) {
+    fn('My name is Ann')
+  });
+});
 ```
 
 
 ### Broadcasting messages (server side).
 
-To broadcast a message to all connected clients simple use the `primus.write` method. The same apply for channels.
+To broadcast a message to all connected clients simple use the `primus.write`
+method. The same apply for channels.
 
 #### Server
 
 ```javascript
-  var Primus = require('primus.io')
-    , server = require('http').Server();
+var Primus = require('primus.io')
+  , server = require('http').Server();
 
-  var primus = new Primus(server, { transformer: 'websockets', parser: 'JSON' });
+var primus = new Primus(server);
 
+primus.on('connection', function (spark) {
   primus.write('Some data');
-
 });
 ```
 
 #### Client
 
 ```javascript
-  var primus = new Primus('http://localhost:8080/');
+var primus = new Primus('http://localhost:8080/');
 
-  primus.on('data', function (data) {
-    console.log(data); //-> Some data
-  });
+primus.on('data', function (data) {
+  console.log(data); //-> Some data
+});
 ```
 
-You can also broadcast messages to all clients by emitting events using the `primus.send` method. The same apply for channels.
+You can also broadcast messages to all clients by emitting events using the
+`primus.send` method. The same apply for channels.
 
 #### Server
 
 ```javascript
-  var Primus = require('primus.io')
-    , server = require('http').Server();
+var Primus = require('primus.io')
+  , server = require('http').Server();
 
-  var primus = new Primus(server, { transformer: 'websockets', parser: 'JSON' });
+var primus = new Primus(server);
 
+primus.on('connection', function (spark) {
   primus.send('news', 'Some data');
-
 });
 ```
 
 #### Client
 
 ```javascript
-  var primus = new Primus('http://localhost:8080/');
+var primus = new Primus('http://localhost:8080/');
 
-  primus.on('news', function (data) {
-    console.log(data); //-> Some data
-  });
+primus.on('news', function (data) {
+  console.log(data); //-> Some data
+});
 ```
 
-You can also use the `primus.forEach` method to iterate over all current connections.
+You can also use the `primus.forEach` method to iterate over all current
+connections.
 
 #### Server
 
 ```javascript
-  var Primus = require('primus.io')
-    , server = require('http').Server();
+var Primus = require('primus.io')
+  , server = require('http').Server();
 
-  var primus = new Primus(server, { transformer: 'websockets', parser: 'JSON' });
+var primus = new Primus(server);
 
-  primus.forEach(function (spark, id, connections) {
-    if (spark.query.foo !== 'bar') return;
+primus.forEach(function (spark, id, connections) {
+  if (spark.query.foo !== 'bar') return;
 
-    spark.write('message');
-  });
-
+  spark.write('message');
 });
 ```
 
-Check out more information on [broadcasting with Primus](https://github.com/primus/primus#broadcasting).
+Check out more information on
+[broadcasting with Primus](https://github.com/primus/primus#broadcasting).
 
 ### Rooms
 
@@ -416,10 +411,9 @@ var Primus = require('primus.io');
 var server = require('http').createServer();
 
 // primus instance
-var primus = new Primus(server, { transformer: 'websockets' });
+var primus = new Primus(server);
 
 primus.on('connection', function (spark) {
-
   spark.on('join', function (room) {
     spark.join(room, function () {
 
@@ -438,7 +432,6 @@ primus.on('connection', function (spark) {
       spark.send('sport', 'you left room ' + room);
     });
   });
-
 });
 
 server.listen(8080);
@@ -447,7 +440,7 @@ server.listen(8080);
 #### Client
 
 ```javascript
-var primus = Primus.connect('ws://localhost:8080');
+var primus = Primus.connect('http://localhost:8080');
 
 primus.on('open', function () {
 
@@ -459,7 +452,6 @@ primus.on('open', function () {
 
   // print server message
   primus.on('sport', function (message) {
-
     console.log(message);
 
     // First output is
@@ -467,14 +459,12 @@ primus.on('open', function () {
 
     // Then later
     //-> you left room sport
-
   });
-
 });
-
 ```
 
-You can check for more documentation on rooms here [primus-rooms](https://github.com/cayasso/primus-rooms).
+You can check for more documentation on rooms here
+[primus-rooms](https://github.com/cayasso/primus-rooms).
 
 ### Run tests
 
@@ -484,7 +474,8 @@ $ make test
 
 ### Credits
 
- * To Arnout Kazemier [3rdEden](https://twitter.com/3rdEden) for the awesome idea of building [Primus](https://github.com/primus/primus).
+* To Arnout Kazemier [3rdEden](https://twitter.com/3rdEden) for the awesome
+  idea of building [Primus](https://github.com/primus/primus).
 
 ### License
 
