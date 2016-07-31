@@ -1,64 +1,34 @@
-var PrimusIO = require('../../');
-var Emitter = require('primus-emitter');
-var Rooms = require('primus-rooms');
-var http = require('http');
-var server = http.createServer();
+'use strict';
 
-// The Primus server
-var primus = new PrimusIO(server, { transformer: 'websockets', parser: 'JSON' });
+const http = require('http');
 
-// Add plugins needed for room and emit functionality
-primus.use('rooms', Rooms);
-primus.use('emitter', Emitter);
+const PrimusIO = require('../../');
 
-// Listen to incoming connections
-primus.on('connection', function(spark){
+const server = http.createServer();
+const primus = new PrimusIO(server);
 
-  console.log('new client connected');
+primus.on('connection', (spark) => {
+  spark.send('ok', 'connected', (msg) => console.log(msg));
+  spark.on('join', (room, fn) => spark.join(room, fn));
 
-  spark.send('ok', 'connected', function(msg){
-    console.log(msg);
-  });
-
-  spark.on('join', function(room, fn){
-    spark.join(room);
-    fn('client joined room ' + room);
-  });
-
-  setInterval(function(){
-    spark.room('news').send('brazil', 'CHAMPION');
-  }, 2000);
-
+  setInterval(() => spark.room('news').send('brazil', 'CHAMPION'), 2000);
 });
 
+const client = (id) => {
+  const socket = new primus.Socket(`http://localhost:${server.address().port}`);
 
-// The client
-function client(id) {
-
-  var Socket = primus.Socket;
-  var spark = new Socket('http://localhost:8080');
-
-  spark.on('brazil', function(msg) {
-    console.log('Brazil is', '****', msg, '****', id);
+  socket.on('brazil', (msg) => console.log('Brazil is', msg, id));
+  socket.on('ok', (msg, fn) => {
+    console.log(id, 'is', msg);
+    fn(`${id} got message`);
   });
 
-  spark.on('ok', function(msg, fn){
-    console.log('user is', msg);
-    fn('client got message');
-  });
+  socket.send('join', 'news', () => console.log(id, 'joined room news'));
+};
 
-  spark.send('join', 'news', function(msg){
-    console.log(msg);
-  });
+server.listen(() => {
+  console.log('listening on *:%d', server.address().port);
 
-}
-
-// Set client
-client('client1');
-client('client2');
-
-
-// Start server
-server.listen(process.env.PORT || 8080, function(){
-  console.log('\033[96mlistening on localhost:8080 \033[39m');
+  client('client1');
+  client('client2');
 });

@@ -1,39 +1,32 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Primus</title>
-  <script src="/primus/primus.io.js"></script>
-</head>
-<body>
-  <h1>
-    Welcome to Primus.IO demo.
-  </h2>
+  <head>
+    <meta charset="utf-8">
+    <title>Primus</title>
+  </head>
+  <body>
+    <h1>Welcome to Primus.IO demo.</h2>
+    <script src="/primus/primus.io.js"></script>
+    <script>
+      (function () {
+        var primus = new Primus();
 
-  <script>
-    var primus = new Primus('http://localhost:8081/?query=string');
+        primus.on('hello', function (msg) {
+          console.log(msg);
+        });
 
-    var a = primus.channel('a');
+        primus.send('join', 'news sport', function () {
+          console.log('joined rooms');
+        });
 
-    a.on('news', function(msg){
-      console.log(msg);
-    });
+        primus.on('sport', function (msg) {
+          console.log(msg);
+        });
 
-    /*primus.on('hello', function(msg){
-      console.log(msg);
-    });
-
-    primus.send('join', 'news sport', function(){
-      console.log('joined rooms');
-    });
-
-    primus.on('sport', function(msg){
-      console.log(msg);
-    });
-
-    primus.on('news', function(msg){
-      console.log(msg);
-    });*/
-  </script>
-<body>
+        primus.on('news', function (msg) {
+          console.log(msg);
+        });
+      })();
+    </script>
+  <body>
 </html>
